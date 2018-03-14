@@ -2,11 +2,12 @@
 import rospy
 import sys
 import rosbag
+import numpy
 import csv
 import rospkg
 import os
 import math
-
+from os.path import expanduser
 
 def main(args):
 
@@ -19,18 +20,18 @@ def main(args):
     """"""""""""""
     bagfile = rospy.get_param('~bagfile_path','~/IMU_2018001.bag')
     topic = rospy.get_param('~imu_topic_name','/imu/data')
-    extractDataPath = ''
+
+    bagfile = rospy.get_param('~bagfile_path','/home/song/bags/IMU_20180112/IMU_20180112.bag')
+    topic = rospy.get_param('~imu_topic_name','/imu/data')
 
     """""""""""""""""""""""""""""
     " IMU data  Directory Path  "
     """""""""""""""""""""""""""""
-    if extractDataPath is None:
-        extractDataPath = '~/imu_data_raw/'
-        if not os.path.isdir(extractDataPath):
-            os.mkdir(extractDataPath)
+    extractDataPath =expanduser("~") +  '/imu_data_raw/'
+    if not os.path.isdir(extractDataPath):
+         os.mkdir(extractDataPath)
 
     print "\nIMU raw data will be save in the following directory: \n\n\n\t %s\n"%extractDataPath
-
     """""""""""""""""
     " Parse Bagfile "
     """""""""""""""""
@@ -38,8 +39,8 @@ def main(args):
 
     N = bag.get_message_count(topic) # number of measurement samples
 
-    data = np.zeros( (6,N) ) # preallocate vector of measurements
-    time_sample = np.zeros( (2,N) ) # preallocate vector of measurements
+    data = numpy.zeros( (6,N) ) # preallocate vector of measurements
+    time_sample = numpy.zeros( (2,N) ) # preallocate vector of measurements
 
     cnt = 0
     avgSampleRate = 0
