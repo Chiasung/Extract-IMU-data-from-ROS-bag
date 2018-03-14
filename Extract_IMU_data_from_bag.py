@@ -21,9 +21,6 @@ def main(args):
     bagfile = rospy.get_param('~bagfile_path','~/IMU_2018001.bag')
     topic = rospy.get_param('~imu_topic_name','/imu/data')
 
-    bagfile = rospy.get_param('~bagfile_path','/home/song/bags/IMU_20180112/IMU_20180112.bag')
-    topic = rospy.get_param('~imu_topic_name','/imu/data')
-
     """""""""""""""""""""""""""""
     " IMU data  Directory Path  "
     """""""""""""""""""""""""""""
